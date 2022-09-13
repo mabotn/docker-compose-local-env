@@ -1,0 +1,21 @@
+version: "3.8"
+
+networks:
+  neopolis:
+
+services:
+  www:
+    build: nginx
+    depends_on: ["api", "app"]
+    ports: ["80:80", "443:443"]
+    networks: ["neopolis"]
+
+  api:
+    build: api
+    volumes: ["./api/src:/src/src"]
+    networks: ["neopolis"]
+
+  app:
+   build: demo
+   volumes: ["./demo/src:/src/src"]
+   networks: ["neopolis"]
